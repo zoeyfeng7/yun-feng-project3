@@ -6,25 +6,27 @@ const jwt = require("jsonwebtoken");
 const managerDb = [
   {
     website: "pikachu",
-    color: "yellow",
+    accountName: "yellow",
     health: 100,
   },
   {
     website: "charizard",
-    color: "red",
+    accountName: "red",
     health: 200,
   },
   {
     website: "squirtle",
-    color: "yellow",
+    accountName: "yellow",
     health: 150,
   },
 ];
 
-router.get("/findColor/:color", async function (request, response) {
-  const color = request.params.color;
+router.get("/findAccountName/:accountName", async function (request, response) {
+  const accountName = request.params.accountName;
 
-  const matchingManager = await ManagerModel.findManagerByColor(color);
+  const matchingManager = await ManagerModel.findManagerByAccountName(
+    accountName
+  );
   response.send(matchingManager);
 });
 
@@ -86,16 +88,16 @@ router.get("/:id", function (request, response) {
 });
 
 router.get("/find", function (req, res) {
-  const color = req.query.color;
+  const accountName = req.query.accountName;
 
-  if (!color) {
+  if (!accountName) {
     return res.send(managerDb);
   }
 
   const output = [];
 
   for (let manager of managerDb) {
-    if (manager.color === color) {
+    if (manager.accountName === accountName) {
       output.push(manager);
     }
   }

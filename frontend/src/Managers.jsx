@@ -10,7 +10,7 @@ export default function Managers() {
   const [managers, setManagers] = useState([]);
   const [managerInput, setManagerInput] = useState({
     website: "",
-    color: "",
+    accountName: "",
     health: 0,
   });
 
@@ -25,7 +25,7 @@ export default function Managers() {
     const managerComponent = (
       <div>
         <Link to={"/manager/" + manager._id}>{manager.website}</Link>{" "}
-        {manager.color} - {manager.health}
+        {manager.accountName} - {manager.health}
       </div>
     );
     components.push(managerComponent);
@@ -39,11 +39,11 @@ export default function Managers() {
     });
   }
 
-  function setManagerColor(event) {
-    const managerColor = event.target.value;
+  function setManagerAccountName(event) {
+    const managerAccountName = event.target.value;
     setManagerInput({
       ...managerInput,
-      color: managerColor,
+      accountName: managerAccountName,
     });
   }
 
@@ -59,7 +59,7 @@ export default function Managers() {
     const response = await axios.post("/api/manager/", managerInput);
     setManagerInput({
       website: "",
-      color: "",
+      accountName: "",
       health: 0,
     });
     await getAllManagers();
@@ -79,8 +79,8 @@ export default function Managers() {
         UserName:{" "}
         <input
           className="input-field"
-          value={managerInput.color}
-          onInput={setManagerColor}
+          value={managerInput.accountName}
+          onInput={setManagerAccountName}
           type="text"
         ></input>
         Password:{" "}

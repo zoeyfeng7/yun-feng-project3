@@ -16,8 +16,8 @@ function getManagerById(id) {
   return ManagerModel.findById(id).exec();
 }
 
-function findManagerByColor(pokeColor) {
-  return ManagerModel.find({ color: pokeColor }).exec();
+function findManagerByAccountName(websiteAccountName) {
+  return ManagerModel.find({ accountName: websiteAccountName }).exec();
 }
 
 function deleteManager(managerId) {
@@ -32,7 +32,7 @@ module.exports = {
   createManager,
   returnAllManager,
   getManagerById,
-  findManagerByColor,
+  findManagerByAccountName,
   deleteManager,
   findManagerByUsername,
 };

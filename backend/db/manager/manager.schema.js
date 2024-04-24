@@ -4,7 +4,7 @@ exports.ManagerSchema = new Schema(
   {
     website: String,
     health: Number,
-    color: {
+    accountName: {
       type: String,
       default: "green",
       require: false,
