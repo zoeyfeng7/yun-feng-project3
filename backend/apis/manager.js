@@ -5,17 +5,17 @@ const jwt = require("jsonwebtoken");
 
 const managerDb = [
   {
-    name: "pikachu",
+    website: "pikachu",
     color: "yellow",
     health: 100,
   },
   {
-    name: "charizard",
+    website: "charizard",
     color: "red",
     health: 200,
   },
   {
-    name: "squirtle",
+    website: "squirtle",
     color: "yellow",
     health: 150,
   },

@@ -2,7 +2,7 @@ const Schema = require("mongoose").Schema;
 
 exports.ManagerSchema = new Schema(
   {
-    name: String,
+    website: String,
     health: Number,
     color: {
       type: String,

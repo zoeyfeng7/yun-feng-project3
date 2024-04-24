@@ -7,7 +7,7 @@ import Header from "./Header";
 export default function Managers() {
   const [managers, setManagers] = useState([]);
   const [managerInput, setManagerInput] = useState({
-    name: "",
+    website: "",
     color: "",
     health: 0,
   });
@@ -22,18 +22,18 @@ export default function Managers() {
     const manager = managers[i];
     const managerComponent = (
       <div>
-        <Link to={"/manager/" + manager._id}>{manager.name}</Link>{" "}
+        <Link to={"/manager/" + manager._id}>{manager.website}</Link>{" "}
         {manager.color} - {manager.health}
       </div>
     );
     components.push(managerComponent);
   }
 
-  function setManagerName(event) {
-    const managerName = event.target.value;
+  function setManagerWebsite(event) {
+    const managerWebsite = event.target.value;
     setManagerInput({
       ...managerInput,
-      name: managerName,
+      website: managerWebsite,
     });
   }
 
@@ -56,7 +56,7 @@ export default function Managers() {
   async function createNewManager() {
     const response = await axios.post("/api/manager/", managerInput);
     setManagerInput({
-      name: "",
+      website: "",
       color: "",
       health: 0,
     });
@@ -69,10 +69,10 @@ export default function Managers() {
       <div>{components}</div>
       <button onClick={getAllManagers}>Click here to fetch Passwords</button>
       <div>
-        Name:{" "}
+        Website:{" "}
         <input
-          value={managerInput.name}
-          onInput={setManagerName}
+          value={managerInput.website}
+          onInput={setManagerWebsite}
           type="text"
         ></input>
         Color:{" "}

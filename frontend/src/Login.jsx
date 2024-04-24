@@ -45,7 +45,7 @@ export default function Login() {
         <input type="text" value={passwordInput} onInput={setPassword}></input>
       </div>
 
-      <button onClick={submit}>Click Here for Sign Up</button>
+      <button onClick={submit}>Login</button>
     </div>
   );
 }

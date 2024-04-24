@@ -23,7 +23,7 @@ export default function ManagerDetail() {
 
   return (
     <div>
-      <div>Name: {managerDetails.name}</div>
+      <div>Website: {managerDetails.website}</div>
       <div>Color: {managerDetails.color}</div>
       <div>Health: {managerDetails.health}</div>
       <button onClick={deleteManager}>Delete Me!</button>
