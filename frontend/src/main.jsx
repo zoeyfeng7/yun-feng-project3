@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import Managers from "./Managers";
-
+import HomePage from "./HomePage";
 import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
 import ManagerDetail from "./ManagerDetail";
 import Login from "./Login";
@@ -24,6 +24,10 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Managers />,
+  },
+  {
+    path: "/Home",
+    element: <HomePage />,
   },
 ]);
 
