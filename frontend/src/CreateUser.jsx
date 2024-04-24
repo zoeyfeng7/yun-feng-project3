@@ -33,19 +33,31 @@ export default function CreateUser() {
   }
 
   return (
-    <div>
+    <div className="manager-container">
       <h1>Register New User</h1>
       {!!error && <h3>{error}</h3>}
       <div>
         <span>Username: </span>
-        <input type="text" value={usernameInput} onInput={setUsername}></input>
+        <input
+          className="input-field"
+          type="text"
+          value={usernameInput}
+          onInput={setUsername}
+        ></input>
       </div>
       <div>
         <span>Password: </span>
-        <input type="text" value={passwordInput} onInput={setPassword}></input>
+        <input
+          className="input-field"
+          type="text"
+          value={passwordInput}
+          onInput={setPassword}
+        ></input>
       </div>
 
-      <button onClick={submit}>Create Account/Login</button>
+      <button className="button" onClick={submit}>
+        Create Account/Login
+      </button>
     </div>
   );
 }
