@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Header from "./Header";
+import "./Managers.css";
+import "./Header.css";
 
 export default function Managers() {
   const [managers, setManagers] = useState([]);
@@ -66,28 +68,37 @@ export default function Managers() {
   return (
     <div>
       <Header />
-      <div>{components}</div>
-      <button onClick={getAllManagers}>Click here to fetch Passwords</button>
-      <div>
+      <div className="form-container">
         Website:{" "}
         <input
+          className="input-field"
           value={managerInput.website}
           onInput={setManagerWebsite}
           type="text"
         ></input>
-        Color:{" "}
+        UserName:{" "}
         <input
+          className="input-field"
           value={managerInput.color}
           onInput={setManagerColor}
           type="text"
         ></input>
-        Health:{" "}
+        Password:{" "}
         <input
+          className="input-field"
           value={managerInput.health}
           onInput={setManagerHealth}
           type="number"
         ></input>
-        <button onClick={createNewManager}>Submit New Password</button>
+        <button className="button" onClick={createNewManager}>
+          Submit New Password
+        </button>
+      </div>
+      <div className="manager-container">{components}</div>
+      <div className="center-container">
+        <button className="button" onClick={getAllManagers}>
+          Click here to fetch Passwords
+        </button>
       </div>
     </div>
   );
