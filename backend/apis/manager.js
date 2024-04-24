@@ -7,17 +7,17 @@ const managerDb = [
   {
     website: "pikachu",
     accountName: "yellow",
-    health: 100,
+    websitePassword: "123",
   },
   {
     website: "charizard",
     accountName: "red",
-    health: 200,
+    websitePassword: "123",
   },
   {
     website: "squirtle",
     accountName: "yellow",
-    health: 150,
+    websitePassword: "123",
   },
 ];
 

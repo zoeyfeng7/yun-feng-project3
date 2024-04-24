@@ -3,7 +3,7 @@ const Schema = require("mongoose").Schema;
 exports.ManagerSchema = new Schema(
   {
     website: String,
-    health: Number,
+    websitePassword: String,
     accountName: {
       type: String,
       default: "green",

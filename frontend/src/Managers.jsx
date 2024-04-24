@@ -11,7 +11,7 @@ export default function Managers() {
   const [managerInput, setManagerInput] = useState({
     website: "",
     accountName: "",
-    health: 0,
+    websitePassword: "",
   });
 
   async function getAllManagers() {
@@ -25,7 +25,7 @@ export default function Managers() {
     const managerComponent = (
       <div>
         <Link to={"/manager/" + manager._id}>{manager.website}</Link>{" "}
-        {manager.accountName} - {manager.health}
+        {manager.accountName} - {manager.websitePassword}
       </div>
     );
     components.push(managerComponent);
@@ -47,11 +47,11 @@ export default function Managers() {
     });
   }
 
-  function setManagerHealth(event) {
-    const managerHealth = event.target.value;
+  function setManagerWebsitePassword(event) {
+    const managerWebsitePassword = event.target.value;
     setManagerInput({
       ...managerInput,
-      health: managerHealth,
+      websitePassword: managerWebsitePassword,
     });
   }
 
@@ -60,7 +60,7 @@ export default function Managers() {
     setManagerInput({
       website: "",
       accountName: "",
-      health: 0,
+      websitePassword: "",
     });
     await getAllManagers();
   }
@@ -86,9 +86,9 @@ export default function Managers() {
         Password:{" "}
         <input
           className="input-field"
-          value={managerInput.health}
-          onInput={setManagerHealth}
-          type="number"
+          value={managerInput.websitePassword}
+          onInput={setManagerWebsitePassword}
+          type="text"
         ></input>
         <button className="button" onClick={createNewManager}>
           Submit New Password

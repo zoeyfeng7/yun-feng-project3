@@ -24,8 +24,8 @@ export default function ManagerDetail() {
   return (
     <div>
       <div>Website: {managerDetails.website}</div>
-      <div>Color: {managerDetails.color}</div>
-      <div>Health: {managerDetails.health}</div>
+      <div>AccountName: {managerDetails.accountName}</div>
+      <div>Password: {managerDetails.websitePassword}</div>
       <button onClick={deleteManager}>Delete Me!</button>
     </div>
   );
