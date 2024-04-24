@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
-
+import Navbar from "./Navbar";
 export default function Login() {
   const [usernameInput, setUsernameInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
@@ -33,31 +33,34 @@ export default function Login() {
   }
 
   return (
-    <div className="manager-container">
-      <h1>Login</h1>
-      {!!error && <h2>{error}</h2>}
-      <div>
-        <span>Username: </span>
-        <input
-          className="input-field"
-          type="text"
-          value={usernameInput}
-          onInput={setUsername}
-        ></input>
-      </div>
-      <div>
-        <span>Password: </span>
-        <input
-          className="input-field"
-          type="text"
-          value={passwordInput}
-          onInput={setPassword}
-        ></input>
-      </div>
+    <div>
+      <Navbar />
+      <div className="manager-container">
+        <h1>Login</h1>
+        {!!error && <h2>{error}</h2>}
+        <div>
+          <span>Username: </span>
+          <input
+            className="input-field"
+            type="text"
+            value={usernameInput}
+            onInput={setUsername}
+          ></input>
+        </div>
+        <div>
+          <span>Password: </span>
+          <input
+            className="input-field"
+            type="text"
+            value={passwordInput}
+            onInput={setPassword}
+          ></input>
+        </div>
 
-      <button className="button" onClick={submit}>
-        Login
-      </button>
+        <button className="button" onClick={submit}>
+          Login
+        </button>
+      </div>
     </div>
   );
 }

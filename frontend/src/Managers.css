@@ -78,3 +78,54 @@ body {
   align-items: center; /* 垂直居中对齐 */
   margin-bottom: 20px; /* 与按钮间距 */
 }
+
+.nav-link {
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #9fbfee; /* 蓝色背景 */
+  color: white; /* 白色文字 */
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s; /* 平滑背景颜色变换的过渡效果 */
+}
+
+.navigation-links {
+  display: flex;
+  gap: 20px; /* 导航链接之间的间距 */
+}
+
+.home-container {
+  text-align: center;
+  padding: 20px;
+  font-family: "Arial", sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.nav-link:hover {
+  color: #025aa5;
+}
+
+.website-name {
+  font-size: 2em;
+  color: #5a5a5a;
+}
+
+.product-description {
+  font-size: 1.2em;
+  margin: 20px auto;
+  max-width: 600px;
+  line-height: 1.6;
+}
+
+.creators {
+  margin-top: 30px;
+  font-style: italic;
+}

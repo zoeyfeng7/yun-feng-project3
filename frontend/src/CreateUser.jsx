@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
+import Navbar from "./Navbar";
 
 export default function CreateUser() {
   const [usernameInput, setUsernameInput] = useState("");
@@ -33,31 +34,34 @@ export default function CreateUser() {
   }
 
   return (
-    <div className="manager-container">
-      <h1>Register New User</h1>
-      {!!error && <h3>{error}</h3>}
-      <div>
-        <span>Username: </span>
-        <input
-          className="input-field"
-          type="text"
-          value={usernameInput}
-          onInput={setUsername}
-        ></input>
-      </div>
-      <div>
-        <span>Password: </span>
-        <input
-          className="input-field"
-          type="text"
-          value={passwordInput}
-          onInput={setPassword}
-        ></input>
-      </div>
+    <div>
+      <Navbar />
+      <div className="manager-container">
+        <h1>Register New User</h1>
+        {!!error && <h3>{error}</h3>}
+        <div>
+          <span>Username: </span>
+          <input
+            className="input-field"
+            type="text"
+            value={usernameInput}
+            onInput={setUsername}
+          ></input>
+        </div>
+        <div>
+          <span>Password: </span>
+          <input
+            className="input-field"
+            type="text"
+            value={passwordInput}
+            onInput={setPassword}
+          ></input>
+        </div>
 
-      <button className="button" onClick={submit}>
-        Create Account/Login
-      </button>
+        <button className="button" onClick={submit}>
+          Create Account/Login
+        </button>
+      </div>
     </div>
   );
 }

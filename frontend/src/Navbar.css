@@ -1,0 +1,51 @@
+.navbar {
+  background-color: #53534d;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+  padding: 0 50px;
+}
+
+.nav-logo {
+  color: #fff;
+  justify-self: start;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.nav-menu {
+  display: flex;
+  list-style: none;
+  align-items: center;
+  margin: 0;
+}
+
+.nav-item {
+  height: 100%;
+  padding: 0 10px;
+  margin: 0 2px; /* 左右外边距 */
+  margin-top: 20px; /* 上边距，使链接下移 */
+}
+
+.nav-link {
+  color: #fff;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  display: block;
+}
+
+.nav-link:hover {
+  background-color: #6b6bdf;
+}

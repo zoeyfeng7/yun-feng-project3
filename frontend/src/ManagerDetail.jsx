@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
+import "./Managers.css";
 
 export default function ManagerDetail() {
   const [managerDetails, setManagerDetails] = useState({});
@@ -9,6 +10,7 @@ export default function ManagerDetail() {
 
   async function fetchAndSetManager() {
     const managerResponse = await axios.get("/api/manager/" + params.managerId);
+    console.log("Manager data:", managerResponse.data);
     setManagerDetails(managerResponse.data);
   }
 
@@ -26,7 +28,9 @@ export default function ManagerDetail() {
       <div>Website: {managerDetails.website}</div>
       <div>AccountName: {managerDetails.accountName}</div>
       <div>Password: {managerDetails.websitePassword}</div>
-      <button onClick={deleteManager}>Delete Me!</button>
+      <button className="button" onClick={deleteManager}>
+        Delete Me!
+      </button>
     </div>
   );
 }
