@@ -8,6 +8,7 @@ import "./Header.css";
 
 export default function Managers() {
   const [managers, setManagers] = useState([]);
+  const [error, setError] = useState("");
   const [managerInput, setManagerInput] = useState({
     website: "",
     accountName: "",
@@ -61,13 +62,23 @@ export default function Managers() {
   }
 
   async function createNewManager() {
-    const response = await axios.post("/api/manager/", managerInput);
-    setManagerInput({
-      website: "",
-      accountName: "",
-      websitePassword: "",
-    });
-    await getAllManagers();
+    if (!managerInput.website) {
+      setError("Please enter a website URL.");
+      return;
+    }
+    try {
+      const response = await axios.post("/api/manager/", managerInput);
+      setManagerInput({
+        website: "",
+        accountName: "",
+        websitePassword: "",
+      });
+      setError("");
+      await getAllManagers();
+    } catch (error) {
+      console.error("Error creating new manager:", error);
+      setError("Failed to create new manager.");
+    }
   }
 
   async function deleteManager(managerId) {
@@ -83,6 +94,7 @@ export default function Managers() {
     <div>
       <Header />
       <div className="form-container">
+        {error && <div className="error-message">{error}</div>}
         Website:{" "}
         <input
           className="input-field"

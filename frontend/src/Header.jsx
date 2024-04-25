@@ -34,7 +34,7 @@ export default function Header() {
 
   return (
     <div className="header">
-      <div>Welcome, {activeUsername}</div>
+      <div className="header-info">Welcome, {activeUsername}</div>
       <button onClick={logOutUser}>Log Out</button>
     </div>
   );

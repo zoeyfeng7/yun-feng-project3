@@ -25,9 +25,13 @@ export default function ManagerDetail() {
 
   return (
     <div className="manager-container">
-      <div>Website: {managerDetails.website}</div>
-      <div>AccountName: {managerDetails.accountName}</div>
-      <div>Password: {managerDetails.websitePassword}</div>
+      <div className="manager-info">Website: {managerDetails.website}</div>
+      <div className="manager-info">
+        AccountName: {managerDetails.accountName}
+      </div>
+      <div className="manager-info">
+        Password: {managerDetails.websitePassword}
+      </div>
       <button className="button" onClick={deleteManager}>
         Delete Me!
       </button>

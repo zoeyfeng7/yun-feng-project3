@@ -1,4 +1,3 @@
-/* Managers.css */
 body {
   background-color: #f0efeb;
   color: #606060;
@@ -78,25 +77,25 @@ body {
 
 .input-row {
   display: flex;
-  justify-content: space-between; /* 保持水平间隔 */
-  align-items: center; /* 垂直居中对齐 */
-  margin-bottom: 20px; /* 与按钮间距 */
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .nav-link {
   text-decoration: none;
   padding: 10px 20px;
   border-radius: 5px;
-  background-color: #9fbfee; /* 蓝色背景 */
-  color: white; /* 白色文字 */
+  background-color: #9fbfee;
+  color: white;
   font-size: 16px;
   font-weight: bold;
-  transition: background-color 0.3s; /* 平滑背景颜色变换的过渡效果 */
+  transition: background-color 0.3s;
 }
 
 .navigation-links {
   display: flex;
-  gap: 20px; /* 导航链接之间的间距 */
+  gap: 20px;
 }
 
 .home-container {
@@ -135,8 +134,13 @@ body {
 }
 
 .manager-info {
-  font-size: 16px;
+  font-size: 20px;
   color: #333;
+  font-style: italic;
+  font-family: "Arial", sans-serif;
+  padding: 8px 0;
+  margin-bottom: 10px;
+  line-height: 1.5;
 }
 
 .manager-button {
@@ -156,4 +160,9 @@ body {
   color: #171716;
   text-decoration: none;
   font-weight: bold;
+}
+
+.error-message {
+  color: rgb(182, 58, 58);
+  margin: 10px 0;
 }

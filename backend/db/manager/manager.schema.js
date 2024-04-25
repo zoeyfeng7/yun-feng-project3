@@ -2,11 +2,14 @@ const Schema = require("mongoose").Schema;
 
 exports.ManagerSchema = new Schema(
   {
-    website: String,
+    website: {
+      type: String,
+      required: [true, "Website URL is required"],
+    },
     websitePassword: String,
     accountName: {
       type: String,
-      default: "green",
+      default: "yourname",
       require: false,
     },
     username: {
