@@ -19,17 +19,22 @@ export default function Managers() {
     setManagers(response.data);
   }
 
-  const components = [];
-  for (let i = 0; i < managers.length; i++) {
-    const manager = managers[i];
-    const managerComponent = (
-      <div>
-        <Link to={"/manager/" + manager._id}>{manager.website}</Link>{" "}
-        {manager.accountName} - {manager.websitePassword}
+  const components = managers.map((manager) => (
+    <div key={manager._id} className="manager-item">
+      <div className="manager-info">
+        <Link to={"/manager/" + manager._id} className="manager-link">
+          {manager.website}
+        </Link>{" "}
+        - {manager.accountName} - {manager.websitePassword}
       </div>
-    );
-    components.push(managerComponent);
-  }
+      <button
+        onClick={() => deleteManager(manager._id)}
+        className="manager-button"
+      >
+        Delete
+      </button>
+    </div>
+  ));
 
   function setManagerWebsite(event) {
     const managerWebsite = event.target.value;
@@ -63,6 +68,15 @@ export default function Managers() {
       websitePassword: "",
     });
     await getAllManagers();
+  }
+
+  async function deleteManager(managerId) {
+    try {
+      await axios.delete("/api/manager/" + managerId);
+      getAllManagers();
+    } catch (error) {
+      console.error("Error deleting manager:", error);
+    }
   }
 
   return (

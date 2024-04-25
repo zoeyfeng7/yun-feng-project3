@@ -24,7 +24,7 @@ export default function ManagerDetail() {
   }
 
   return (
-    <div>
+    <div className="manager-container">
       <div>Website: {managerDetails.website}</div>
       <div>AccountName: {managerDetails.accountName}</div>
       <div>Password: {managerDetails.websitePassword}</div>
