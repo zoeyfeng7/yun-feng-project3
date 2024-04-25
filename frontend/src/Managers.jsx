@@ -14,6 +14,14 @@ export default function Managers() {
     accountName: "",
     websitePassword: "",
   });
+  const [visiblePasswords, setVisiblePasswords] = useState({});
+
+  const togglePasswordVisibility = (id) => {
+    setVisiblePasswords((prev) => ({
+      ...prev,
+      [id]: !prev[id],
+    }));
+  };
 
   const copyToClipboard = (password) => {
     navigator.clipboard.writeText(password).then(
@@ -36,9 +44,18 @@ export default function Managers() {
       <div className="manager-info">
         <Link to={"/manager/" + manager._id} className="manager-link">
           {manager.website}
-        </Link>{" "}
-        - {manager.accountName} - {manager.websitePassword}
+        </Link>
+        {" - "}
+        {manager.accountName}
+        {" - "}
+        {visiblePasswords[manager._id] ? manager.websitePassword : "••••••"}
       </div>
+      <button
+        className="manager-button"
+        onClick={() => togglePasswordVisibility(manager._id)}
+      >
+        {visiblePasswords[manager._id] ? "Hide" : "Show"} Password
+      </button>
       <button
         className="manager-button"
         onClick={() => copyToClipboard(manager.websitePassword)}
@@ -49,7 +66,7 @@ export default function Managers() {
         onClick={() => deleteManager(manager._id)}
         className="manager-button"
       >
-        Delete This Record
+        Delete Password
       </button>
     </div>
   ));
