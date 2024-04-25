@@ -15,6 +15,17 @@ export default function Managers() {
     websitePassword: "",
   });
 
+  const copyToClipboard = (password) => {
+    navigator.clipboard.writeText(password).then(
+      () => {
+        alert("Password copied to clipboard!");
+      },
+      (err) => {
+        console.error("Could not copy text: ", err);
+      }
+    );
+  };
+
   async function getAllManagers() {
     const response = await axios.get("/api/manager/");
     setManagers(response.data);
@@ -29,10 +40,16 @@ export default function Managers() {
         - {manager.accountName} - {manager.websitePassword}
       </div>
       <button
+        className="manager-button"
+        onClick={() => copyToClipboard(manager.websitePassword)}
+      >
+        Copy Password
+      </button>
+      <button
         onClick={() => deleteManager(manager._id)}
         className="manager-button"
       >
-        Delete
+        Delete This Record
       </button>
     </div>
   ));
