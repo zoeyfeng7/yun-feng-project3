@@ -1,5 +1,4 @@
 const express = require("express");
-const helper = require("./apis/helper");
 const manager = require("./apis/manager");
 const users = require("./apis/user");
 const app = express();
@@ -32,5 +31,5 @@ app.get("*", function (req, res) {
 });
 
 app.listen(process.env.PORT || 8000, function () {
-  console.log("Starting server now...");
+  console.log("Server is ruuning now...");
 });

@@ -39,7 +39,7 @@ router.post("/", async function (request, response) {
   try {
     decryptedUsername = jwt.verify(username, "HUNTERS_PASSWORD");
   } catch (e) {
-    return response.status(404).send("Invalid request");
+    return response.status(401).send("Invalid request");
   }
 
   newManager.username = decryptedUsername;
@@ -105,23 +105,11 @@ router.get("/find", function (req, res) {
   res.send(output);
 });
 
-router.get("/pikachu", function (req, res) {
-  res.send("This is the pikachu");
-});
-
-router.get("/", function (req, res) {
-  res.send("This is the the base manager route");
-});
-
 router.delete("/:managerId", async function (req, response) {
   const managerId = req.params.managerId;
 
   const deleteResponse = await ManagerModel.deleteManager(managerId);
   return response.send("Successfully delete manager!");
-});
-
-router.post("/", function (req, res) {
-  res.send("This is how you'll create new manager");
 });
 
 module.exports = router;

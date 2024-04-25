@@ -2,10 +2,11 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 import "./Header.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Header() {
   const [activeUsername, setActiveUsername] = useState(null);
+  const navigate = useNavigate();
 
   async function checkIfUserIsLoggedIn() {
     const response = await axios.get("/api/users/isLoggedIn");
@@ -20,6 +21,7 @@ export default function Header() {
   async function logOutUser() {
     await axios.post("/api/users/logOut");
     setActiveUsername(null);
+    navigate("/");
   }
 
   if (!activeUsername) {
