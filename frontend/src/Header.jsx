@@ -25,7 +25,7 @@ export default function Header() {
   if (!activeUsername) {
     return (
       <div className="header">
-        <Link to="/login">Click here to login</Link>
+        <Link to="/">Click here to Home Page</Link>
       </div>
     );
   }
