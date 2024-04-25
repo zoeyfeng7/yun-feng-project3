@@ -26,7 +26,7 @@ export default function CreateUser() {
         username: usernameInput,
         password: passwordInput,
       });
-      navigate("/");
+      navigate("/passwordManager");
     } catch (error) {
       console.log(error);
       setError(error.response.data);

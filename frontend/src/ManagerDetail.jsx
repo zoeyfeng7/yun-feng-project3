@@ -20,7 +20,7 @@ export default function ManagerDetail() {
 
   async function deleteManager() {
     const response = await axios.delete("/api/manager/" + params.managerId);
-    navigate("/");
+    navigate("/passwordManager");
   }
 
   return (

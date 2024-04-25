@@ -26,7 +26,7 @@ export default function Login() {
         username: usernameInput,
         password: passwordInput,
       });
-      navigate("/");
+      navigate("/passwordManager");
     } catch (e) {
       setErrorValue(e.response.data);
     }

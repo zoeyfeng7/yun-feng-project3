@@ -21,11 +21,11 @@ const router = createBrowserRouter([
     element: <CreateUser />,
   },
   {
-    path: "/",
+    path: "/passwordManager",
     element: <Managers />,
   },
   {
-    path: "/Home",
+    path: "/",
     element: <HomePage />,
   },
 ]);
