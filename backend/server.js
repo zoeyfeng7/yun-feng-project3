@@ -31,5 +31,5 @@ app.get("*", function (req, res) {
 });
 
 app.listen(process.env.PORT || 8000, function () {
-  console.log("Server is ruuning now...");
+  console.log("Server is running now...");
 });
