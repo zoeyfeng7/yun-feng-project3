@@ -15,6 +15,8 @@ export default function Managers() {
     websitePassword: "",
   });
   const [visiblePasswords, setVisiblePasswords] = useState({});
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredManagers, setFilteredManagers] = useState([]);
 
   const togglePasswordVisibility = (id) => {
     setVisiblePasswords((prev) => ({
@@ -37,9 +39,21 @@ export default function Managers() {
   async function getAllManagers() {
     const response = await axios.get("/api/manager/");
     setManagers(response.data);
+    setFilteredManagers(response.data); // Ensure all passwords are fetched
   }
 
-  const components = managers.map((manager) => (
+  const handleSearch = () => {
+    if (searchTerm) {
+      const filtered = managers.filter((manager) =>
+        manager.website.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilteredManagers(filtered);
+    } else {
+      setFilteredManagers(managers);
+    }
+  };
+
+  const components = filteredManagers.map((manager) => (
     <div key={manager._id} className="manager-item">
       <div className="manager-info">
         <Link to={"/manager/" + manager._id} className="manager-link">
@@ -151,7 +165,19 @@ export default function Managers() {
           type="text"
         ></input>
         <button className="button" onClick={createNewManager}>
-          Submit New Password
+          Adding New Password
+        </button>
+      </div>
+      <div className="form-container">
+        <input
+          className="input-field"
+          className="search-bar"
+          placeholder="Search by website"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        ></input>
+        <button className="button" onClick={handleSearch}>
+          Search By Website
         </button>
       </div>
       <div className="manager-container">{components}</div>

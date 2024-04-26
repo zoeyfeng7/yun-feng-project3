@@ -22,7 +22,7 @@ router.post("/login", async function (req, res) {
 
     res.cookie("username", token);
 
-    return res.send("User created successfully");
+    return res.send("User login successfully");
   } catch (e) {
     res.status(401).send(null);
   }

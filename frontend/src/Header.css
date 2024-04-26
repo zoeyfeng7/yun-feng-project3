@@ -1,7 +1,7 @@
 /* Header.css */
 
 .header {
-  background-color: #e0c1e2a9; /* 莫兰迪蓝的背景色 */
+  background-color: #e0c1e2a9;
   box-shadow: 0 2px 4px rgba(212, 173, 204, 0.1);
   padding: 10px 20px;
   display: flex;
@@ -18,26 +18,26 @@
 
 .header a {
   text-decoration: none;
-  color: #f3f7fb; /* 莫兰迪蓝的文字颜色 */
+  color: #f3f7fb;
   font-weight: bold;
-  transition: color 0.3s ease; /* 过渡动画 */
+  transition: color 0.3s ease;
 }
 
 .header button {
   padding: 8px 16px;
-  border: 2px solid #5a7391; /* 莫兰迪蓝的边框颜色 */
+  border: 2px solid #5a7391;
   color: #5a7391;
   cursor: pointer;
   border-radius: 4px;
   outline: none;
   font-family: inherit;
-  transition: background-color 0.3s ease, color 0.3s ease; /* 过渡动画 */
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .header button:hover,
 .header a:hover {
-  background-color: #93afd1; /* 悬停时的背景色 */
-  color: white; /* 悬停时的文字颜色 */
+  background-color: #93afd1;
+  color: white;
 }
 
 @media (max-width: 600px) {
