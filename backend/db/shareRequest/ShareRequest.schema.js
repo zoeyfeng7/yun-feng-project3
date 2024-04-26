@@ -5,29 +5,24 @@ const ShareRequestSchema = new Schema(
   {
     managerId: {
       type: Schema.Types.ObjectId,
-      ref: "ManagerModel", // Assuming 'ManagerModel' is the name used in your Manager schema
+      ref: "UserModel",
       required: true,
     },
     ownerId: {
-      type: String,
+      type: Schema.Types.ObjectId,
+      ref: "UserModel",
       required: true,
     },
     sharedWithId: {
-      type: String,
+      type: Schema.Types.ObjectId,
+      ref: "UserModel",
       required: true,
     },
     status: {
       type: String,
-      required: true,
-      default: "pending", // Values are 'pending', 'accepted', 'rejected'
       enum: ["pending", "accepted", "rejected"],
-    },
-    createdAt: {
-      type: Date,
-      default: Date.now,
+      default: "pending",
     },
   },
-  { collection: "shareRequestsSpr2023" }
+  { collection: "shareRequestsSpr2023", timestamps: true }
 );
-
-exports.ShareRequestSchema = ShareRequestSchema;

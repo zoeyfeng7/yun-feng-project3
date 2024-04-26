@@ -1,6 +1,7 @@
 const express = require("express");
 const manager = require("./apis/manager");
 const users = require("./apis/user");
+const shareRequest = require("./apis/shareRequest");
 const app = express();
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -21,6 +22,7 @@ app.use(cookieParser());
 
 app.use("/api/manager/", manager);
 app.use("/api/users/", users);
+app.use("/api/shareRequest", shareRequest);
 
 let frontend_dir = path.join(__dirname, "..", "frontend", "dist");
 

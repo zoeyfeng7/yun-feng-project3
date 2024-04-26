@@ -23,6 +23,8 @@ export default function Managers() {
   const [visiblePasswords, setVisiblePasswords] = useState({});
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredManagers, setFilteredManagers] = useState([]);
+  const [shareUsername, setShareUsername] = useState(""); // Username to share with
+  const [shareRequests, setShareRequests] = useState([]);
 
   const togglePasswordVisibility = (id) => {
     setVisiblePasswords((prev) => ({
@@ -137,6 +139,48 @@ export default function Managers() {
     }
   };
 
+  const handleShareUsernameChange = (e) => {
+    setShareUsername(e.target.value);
+  };
+
+  const submitShareRequest = async () => {
+    try {
+      const response = await axios.post("/api/shareRequest/", {
+        sharedWithUsername: shareUsername,
+      });
+      if (
+        response.data.sent.length === 0 &&
+        response.data.received.length === 0
+      ) {
+        console.log("No share requests");
+      }
+    } catch (error) {
+      console.error("Failed to send share request:", error);
+    }
+  };
+
+  const fetchShareRequests = async () => {
+    try {
+      const response = await axios.get("/api/shareRequest/");
+      setShareRequests(response.data.received);
+    } catch (error) {
+      console.error("Error fetching share requests:", error);
+    }
+  };
+
+  const handleShareResponse = async (requestId, accept) => {
+    try {
+      const response = await axios.post("/api/shareRequest/response", {
+        requestId,
+        accept,
+      });
+      alert("Response recorded: " + response.data.message);
+      fetchShareRequests(); // Refresh the share requests
+    } catch (error) {
+      console.error("Error responding to share request:", error);
+    }
+  };
+
   const components = filteredManagers.map((manager) => (
     <div key={manager._id} className="manager-item">
       <div className="manager-info">
@@ -233,6 +277,7 @@ export default function Managers() {
           value={managerInput.website}
           onInput={setManagerWebsite}
           type="text"
+          placeholder="Example: Google.com"
         ></input>
         UserName:{" "}
         <input
@@ -240,6 +285,7 @@ export default function Managers() {
           value={managerInput.accountName}
           onInput={setManagerAccountName}
           type="text"
+          placeholder="Example: yunfeng"
         ></input>
         Password:{" "}
         <input
@@ -247,6 +293,7 @@ export default function Managers() {
           value={managerInput.websitePassword}
           onInput={setManagerWebsitePassword}
           type="text"
+          placeholder="Example: yunfeng12345678"
         ></input>
         <div>
           <input
@@ -295,6 +342,31 @@ export default function Managers() {
         <button className="button" onClick={getAllManagers}>
           Click here to fetch Passwords
         </button>
+      </div>
+      <div className="form-container">
+        <input
+          className="input-field"
+          type="text"
+          value={shareUsername}
+          onChange={handleShareUsernameChange}
+          placeholder="Enter username to share with"
+        />
+        <button className="button">Submit Share Request</button>
+        <div>
+          {shareRequests.map((request) => (
+            <div key={request._id}>
+              <p>
+                {request.requesterUsername} wants to share passwords with you.
+              </p>
+              <button onClick={() => handleShareResponse(request._id, true)}>
+                Accept
+              </button>
+              <button onClick={() => handleShareResponse(request._id, false)}>
+                Reject
+              </button>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

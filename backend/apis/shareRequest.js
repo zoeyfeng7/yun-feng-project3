@@ -1,26 +1,41 @@
 const express = require("express");
 const router = express.Router();
-const shareRequestModel = require("../db/shareRequest/shareRequest.model");
-const userModel = require("../db/user/user.model");
+const {
+  createShareRequest,
+  getShareRequestById,
+  findShareRequestsByOwnerId,
+  findShareRequestsBySharedWithId,
+  updateShareRequestStatus,
+} = require("../db/shareRequest/shareRequest.model");
+const UserModel = require("../db/user/user.model");
 const jwt = require("jsonwebtoken");
 
 router.post("/", async function (request, response) {
   const { sharedWithUsername } = request.body;
-  const token = request.cookies.username;
+  console.log("Shared with username:", sharedWithUsername);
+  const token = request.cookies.username; // 从 cookie 中获取 token
+
   let requesterUsername;
 
   try {
-    requesterUsername = jwt.verify(token, "HUNTERS_PASSWORD").username;
-  } catch (e) {
-    return response.status(401).send("Invalid token");
-  }
+    const decoded = jwt.verify(token, "HUNTERS_PASSWORD");
+    requesterUsername = decoded.username;
 
-  if (requesterUsername === sharedWithUsername) {
-    return response.status(400).send("Cannot share passwords with yourself.");
-  }
+    if (!requesterUsername) {
+      return response.status(400).send("Username is required.");
+    }
 
-  try {
-    // Verify if sharedWithUsername exists
+    const requesterUser = await UserModel.findOne({
+      username: requesterUsername,
+    });
+    if (!requesterUser) {
+      return response.status(404).send("Requester user does not exist.");
+    }
+
+    if (!sharedWithUsername) {
+      return response.status(400).send("Shared with username is required.");
+    }
+
     const sharedWithUser = await UserModel.findOne({
       username: sharedWithUsername,
     });
@@ -28,20 +43,31 @@ router.post("/", async function (request, response) {
       return response.status(404).send("User to share with does not exist.");
     }
 
+    if (requesterUser._id.equals(sharedWithUser._id)) {
+      return response.status(400).send("Cannot share passwords with yourself.");
+    }
+
     const newShareRequest = {
-      ownerId: sharedWithUser._id,
-      sharedWithId: requesterUsername,
-      status: "pending", // Default status
+      ownerId: requesterUser._id,
+      sharedWithId: sharedWithUser._id,
+      status: "pending",
     };
 
-    const createShareRequestResponse =
-      await ShareRequestModel.createShareRequest(newShareRequest);
+    const createShareRequestResponse = await createShareRequest(
+      newShareRequest
+    );
     return response.status(201).send({
       message: "Share request successfully created",
       data: createShareRequestResponse,
     });
   } catch (error) {
     console.error("Error creating share request:", error);
+    if (
+      error.name === "JsonWebTokenError" ||
+      error.name === "TokenExpiredError"
+    ) {
+      return response.status(401).send("Invalid or expired token");
+    }
     return response
       .status(500)
       .send("Server error while creating share request");
@@ -53,17 +79,11 @@ router.get("/", async function (request, response) {
   let username;
 
   try {
-    username = jwt.verify(token, "HUNTERS_PASSWORD").username;
-  } catch (error) {
-    return response.status(401).send("Invalid or expired token");
-  }
+    const decoded = jwt.verify(token, "HUNTERS_PASSWORD");
+    username = decoded.username;
 
-  try {
-    const sentRequests = await ShareRequestModel.findShareRequestsByOwnerId(
-      username
-    );
-    const receivedRequests =
-      await ShareRequestModel.findShareRequestsBySharedWithId(username);
+    const sentRequests = await findShareRequestsByOwnerId(username);
+    const receivedRequests = await findShareRequestsBySharedWithId(username);
     return response
       .status(200)
       .send({ sent: sentRequests, received: receivedRequests });
@@ -79,27 +99,23 @@ router.post("/response", async function (request, response) {
   let username;
 
   try {
-    username = jwt.verify(token, "HUNTERS_PASSWORD").username;
-  } catch (error) {
-    return response.status(401).send("Invalid or expired token");
-  }
+    const decoded = jwt.verify(token, "HUNTERS_PASSWORD");
+    username = decoded.username;
 
-  try {
-    const shareRequest = await ShareRequestModel.getShareRequestById(requestId);
+    const shareRequest = await getShareRequestById(requestId);
     if (!shareRequest) {
       return response.status(404).send("Share request not found.");
     }
-    if (shareRequest.sharedWithId !== username) {
+    if (shareRequest.sharedWithId.toString() !== username) {
       return response
         .status(403)
         .send("Unauthorized to respond to this share request.");
     }
 
-    const updatedShareRequest =
-      await ShareRequestModel.updateShareRequestStatus(
-        requestId,
-        accept ? "accepted" : "rejected"
-      );
+    const updatedShareRequest = await updateShareRequestStatus(
+      requestId,
+      accept ? "accepted" : "rejected"
+    );
     return response
       .status(200)
       .send({ message: `Share request ${updatedShareRequest.status}.` });
