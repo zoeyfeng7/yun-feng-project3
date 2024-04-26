@@ -48,7 +48,7 @@ router.post("/register", async function (req, res) {
 
     return res.send("User created successfully");
   } catch (e) {
-    res.status(401).send("Error: username already exists");
+    res.status(401).send("This username already exists!");
   }
 });
 

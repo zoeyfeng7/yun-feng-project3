@@ -171,7 +171,6 @@ export default function Managers() {
       <div className="form-container">
         <input
           className="input-field"
-          className="search-bar"
           placeholder="Search by website"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
