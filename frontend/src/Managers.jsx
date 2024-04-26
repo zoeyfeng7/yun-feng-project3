@@ -14,6 +14,12 @@ export default function Managers() {
     accountName: "",
     websitePassword: "",
   });
+  const [passwordSettings, setPasswordSettings] = useState({
+    alphabet: false,
+    numerals: false,
+    symbols: false,
+    length: 12, // Default length
+  });
   const [visiblePasswords, setVisiblePasswords] = useState({});
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredManagers, setFilteredManagers] = useState([]);
@@ -37,9 +43,13 @@ export default function Managers() {
   };
 
   async function getAllManagers() {
-    const response = await axios.get("/api/manager/");
-    setManagers(response.data);
-    setFilteredManagers(response.data); // Ensure all passwords are fetched
+    try {
+      const response = await axios.get("/api/manager/");
+      setManagers(response.data);
+      setFilteredManagers(response.data); // Ensure all passwords are fetched
+    } catch (error) {
+      console.error("Error fetching managers:", error);
+    }
   }
 
   const handleSearch = () => {
@@ -50,6 +60,80 @@ export default function Managers() {
       setFilteredManagers(filtered);
     } else {
       setFilteredManagers(managers);
+    }
+  };
+
+  const handleCheckboxChange = (field) => {
+    setPasswordSettings((prev) => ({
+      ...prev,
+      [field]: !prev[field],
+    }));
+  };
+
+  const setLength = (event) => {
+    setPasswordSettings({
+      ...passwordSettings,
+      length: event.target.value,
+    });
+  };
+
+  const generatePassword = () => {
+    let characters = "";
+    if (passwordSettings.alphabet)
+      characters += "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    if (passwordSettings.numerals) characters += "0123456789";
+    if (passwordSettings.symbols) characters += "!@#$%^&*()_+-=[]{}|;:,.<>?";
+
+    let password = "";
+    for (let i = 0; i < passwordSettings.length; i++) {
+      password += characters.charAt(
+        Math.floor(Math.random() * characters.length)
+      );
+    }
+    return password;
+  };
+
+  const createOrUpdateManager = async () => {
+    const { website, accountName } = managerInput;
+    if (!website || !accountName) {
+      setError("Website and Account Name are required.");
+      return;
+    }
+
+    let { websitePassword } = managerInput;
+    if (!websitePassword) {
+      if (
+        !passwordSettings.alphabet &&
+        !passwordSettings.numerals &&
+        !passwordSettings.symbols
+      ) {
+        setError("At least one password criterion must be selected.");
+        return;
+      }
+      websitePassword = generatePassword();
+    }
+
+    try {
+      const response = await axios.post("/api/manager/", {
+        ...managerInput,
+        websitePassword,
+      });
+      setManagerInput({
+        website: "",
+        accountName: "",
+        websitePassword: "",
+      });
+      setPasswordSettings({
+        alphabet: false,
+        numerals: false,
+        symbols: false,
+        length: 12,
+      });
+      setError("");
+      await getAllManagers();
+    } catch (error) {
+      console.error("Error creating/updating manager:", error);
+      setError("Failed to create/update manager.");
     }
   };
 
@@ -164,7 +248,34 @@ export default function Managers() {
           onInput={setManagerWebsitePassword}
           type="text"
         ></input>
-        <button className="button" onClick={createNewManager}>
+        <div>
+          <input
+            type="checkbox"
+            checked={passwordSettings.alphabet}
+            onChange={() => handleCheckboxChange("alphabet")}
+          />{" "}
+          Alphabet
+          <input
+            type="checkbox"
+            checked={passwordSettings.numerals}
+            onChange={() => handleCheckboxChange("numerals")}
+          />{" "}
+          Numerals
+          <input
+            type="checkbox"
+            checked={passwordSettings.symbols}
+            onChange={() => handleCheckboxChange("symbols")}
+          />{" "}
+          Symbols Length:{" "}
+          <input
+            type="number"
+            value={passwordSettings.length}
+            onChange={setLength}
+            min="4"
+            max="50"
+          />
+        </div>
+        <button className="button" onClick={createOrUpdateManager}>
           Adding New Password
         </button>
       </div>
