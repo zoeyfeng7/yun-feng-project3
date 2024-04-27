@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -25,6 +25,10 @@ export default function Managers() {
   const [filteredManagers, setFilteredManagers] = useState([]);
   const [shareUsername, setShareUsername] = useState(""); // Username to share with
   const [shareRequests, setShareRequests] = useState([]);
+
+  useEffect(() => {
+    getAllManagers();
+  }, []);
 
   const togglePasswordVisibility = (id) => {
     setVisiblePasswords((prev) => ({
@@ -335,11 +339,6 @@ export default function Managers() {
         </button>
       </div>
       <div className="manager-container">{components}</div>
-      <div className="center-container">
-        <button className="button" onClick={getAllManagers}>
-          Click Here To Fetch All Passwords
-        </button>
-      </div>
       <div className="form-container">
         <input
           className="input-field"
@@ -349,6 +348,11 @@ export default function Managers() {
         ></input>
         <button className="button" onClick={handleSearch}>
           Search By Website
+        </button>
+      </div>
+      <div className="center-container">
+        <button className="button" onClick={getAllManagers}>
+          Click Here To Fetch All Passwords Again
         </button>
       </div>
       <div className="form-container">
