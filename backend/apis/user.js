@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
-
+const bcrypt = require("bcryptjs");
 const UserModel = require("../db/user/user.model");
 
 router.post("/login", async function (req, res) {
@@ -9,12 +9,11 @@ router.post("/login", async function (req, res) {
   const password = req.body.password;
 
   try {
-    const createUserResponse = await UserModel.findUserByUsername(username);
-
-    console.log(createUserResponse);
-    console.log(createUserResponse.password);
-    console.log(password);
-    if (createUserResponse.password !== password) {
+    const isValidPassword = await UserModel.validatePassword(
+      username,
+      password
+    );
+    if (!isValidPassword) {
       return res.status(403).send("Invalid password");
     }
 
