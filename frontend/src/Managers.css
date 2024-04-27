@@ -45,6 +45,18 @@ body {
   width: 100%;
 }
 
+.button-orange {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #e9c7a1;
+  color: white;
+  cursor: pointer;
+  margin: 10px 0;
+  display: block;
+  width: 100%;
+}
+
 .center-container,
 .form-container {
   text-align: center;

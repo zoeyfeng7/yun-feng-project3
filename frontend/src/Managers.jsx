@@ -326,6 +326,12 @@ export default function Managers() {
           Adding New Password
         </button>
       </div>
+      <div className="manager-container">{components}</div>
+      <div className="center-container">
+        <button className="button" onClick={getAllManagers}>
+          Click here to fetch Passwords
+        </button>
+      </div>
       <div className="form-container">
         <input
           className="input-field"
@@ -335,12 +341,6 @@ export default function Managers() {
         ></input>
         <button className="button" onClick={handleSearch}>
           Search By Website
-        </button>
-      </div>
-      <div className="manager-container">{components}</div>
-      <div className="center-container">
-        <button className="button" onClick={getAllManagers}>
-          Click here to fetch Passwords
         </button>
       </div>
       <div className="form-container">
