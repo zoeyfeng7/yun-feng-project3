@@ -87,12 +87,20 @@ export default function Managers() {
     if (passwordSettings.symbols) characters += "!@#$%^&*()_+-=[]{}|;:,.<>?";
 
     let password = "";
+    const characterArray = characters.split("");
+    const characterLength = characterArray.length;
+
     for (let i = 0; i < passwordSettings.length; i++) {
-      password += characters.charAt(
-        Math.floor(Math.random() * characters.length)
-      );
+      const randomIndex = getRandomIndex(characterLength);
+      password += characterArray[randomIndex];
     }
     return password;
+  };
+
+  const getRandomIndex = (length) => {
+    const array = new Uint32Array(1);
+    window.crypto.getRandomValues(array);
+    return array[0] % length;
   };
 
   const createOrUpdateManager = async () => {
@@ -329,13 +337,13 @@ export default function Managers() {
       <div className="manager-container">{components}</div>
       <div className="center-container">
         <button className="button" onClick={getAllManagers}>
-          Click here to fetch Passwords
+          Click Here To Fetch All Passwords
         </button>
       </div>
       <div className="form-container">
         <input
           className="input-field"
-          placeholder="Search by website"
+          placeholder="Example: Amazon.com"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         ></input>

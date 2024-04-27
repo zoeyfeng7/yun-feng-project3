@@ -5,19 +5,19 @@ const jwt = require("jsonwebtoken");
 
 const managerDb = [
   {
-    website: "pikachu",
-    accountName: "yellow",
+    website: "google.com",
+    accountName: "user1",
     websitePassword: "123",
   },
   {
-    website: "charizard",
-    accountName: "red",
-    websitePassword: "123",
+    website: "amazon.com",
+    accountName: "user2",
+    websitePassword: "456",
   },
   {
-    website: "squirtle",
-    accountName: "yellow",
-    websitePassword: "123",
+    website: "tesla.com",
+    accountName: "user3",
+    websitePassword: "helloworld",
   },
 ];
 
